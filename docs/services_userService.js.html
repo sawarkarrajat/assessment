@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: services/userService.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: services/userService.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const userModelObj = require('../models/userModel');
+const utility = require('../utilities/utility');
+const token = require('../utilities/tokenGen');
+const bcrypt = require('bcrypt');
+let tok;
+
+class UserService {
+  returnToken() {
+    return tok;
+  }
+  //register service
+  registerUser(body, callback) {
+    console.log(' request in create service ');
+    let mail = { email: body.email };
+    userModelObj.findUser(mail, (err, result) => {
+      if (err) {
+        callback(err);
+      } else {
+        if (!result) {
+          userModelObj.createUser(body, (err, data) => {
+            if (err) {
+              callback(err);
+            } else {
+              callback(null, data);
+            }
+          });
+        } else {
+          callback(result);
+        }
+      }
+    });
+  }
+  // login service
+  loginUser(body, callback) {
+    console.log(' request in login service ');
+    let mail = { email: body.email };
+
+    userModelObj.findUser(mail, (err, result) => {
+      if (err) {
+        callback(err);
+      } else {
+        if (!result) {
+          callback({ message: 'no data found' });
+        } else {
+          console.log('value of result', result);
+          console.log('value of result id', result._id);
+          console.log('value of body', body.password);
+          console.log(
+            'after bcrypt reconversion',
+            bcrypt.compareSync(body.password, result.password)
+          );
+
+          if (bcrypt.compareSync(body.password, result.password)) {
+            console.log('value of body in if', body);
+            console.log('value of result in if', result);
+
+            let tokenvalue = token.tokenGenerator(result);
+            tok = tokenvalue;
+            console.log('token generated:  ', tokenvalue);
+            callback(null, result);
+          } else {
+            callback({ message: "passwords don't match" });
+          }
+        }
+      }
+    });
+  }
+  /**
+   * checking user login status
+   */
+  loggedUser(body, callback) {
+    if (body) {
+      callback(null, body);
+    } else {
+      callback(err);
+    }
+  }
+  /**
+   * forgot password service method
+   */
+  forgotPasswordUser(body, callback) {
+    console.log('request in forgot password service ');
+    userModelObj.findUser(body, (err, result) => {
+      if (err) {
+        callback(err);
+      } else {
+        if (!result) {
+          console.log('result:', result);
+          callback({ message: "user doesn't exist please register first" });
+        } else {
+          console.log('value of result', result);
+          console.log('value of body', body);
+          userModelObj.verifyUser(result, (error, data) => {
+            if (error) {
+              callback(error);
+            } else {
+              console.log('data recieved after verify user', data);
+
+              callback(null, data);
+            }
+          });
+        }
+      }
+    });
+  }
+  /**
+   * forgot password service method
+   */
+  resetPasswordUser(userNewPass, userId, callback) {
+    // var uId = { '_id': id };
+    console.log(
+      ' request in resetPasswordUser service\n value of password ' +
+        userNewPass +
+        '\nvalue of id ' +
+        userId
+    );
+    userModelObj.findUser(userId, (err, result) => {
+      if (err) {
+        console.log('caught in error finding user');
+
+        callback(err);
+      } else {
+        if (!result) {
+          callback({ message: "user doesn't exist please register first" });
+        } else {
+          console.log('value of result', result);
+          console.log('value of id', userId);
+          userModelObj.changePassword(userNewPass, userId, (error, data) => {
+            if (error) {
+              callback(error);
+            } else {
+              callback(null, data);
+            }
+          });
+        }
+      }
+    });
+  }
+  /**
+   * getting all users in chatDashboard
+   */
+  getAll_Users(body, callback) {
+    console.log(' request in getallusers service and has body', body);
+
+    userModelObj.getAll((err, result) => {
+      if (err) {
+        callback(err);
+      } else {
+        if (!result) {
+          callback({ message: 'no data found' });
+        } else {
+          callback(null, result);
+        }
+      }
+    });
+  }
+  /**
+   * saving messages in db
+   */
+  saveConversation(body, callback) {
+    console.log(' request in saveConversation service and has body', body);
+
+    userModelObj.saveMsg((err, result) => {
+      if (err) {
+        callback(err);
+      } else {
+        if (!result) {
+          callback({ message: 'no data found' });
+        } else {
+          callback(null, result);
+        }
+      }
+    });
+  }
+}
+module.exports = new UserService();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Wed Jun 16 2021 16:02:02 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

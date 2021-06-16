@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon ./src/server.js",
+    "doc": "jsdoc -c jsdoc.json"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,6 @@
     "nodemailer": "^6.6.1"
   },
   "devDependencies": {
-     "nodemon": "^2.0.7"
-   }
+    "nodemon": "^2.0.7"
+  }
 }
