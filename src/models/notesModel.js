@@ -29,13 +29,13 @@ const notes = mongoose.model('notes', noteSchema);
 class NotesModel {
 	addNote(noteData, callback) {
 		console.log(' request in add note model', noteData);
-		const createNotesDb = new notes({
+		const notesDb = new notes({
 			message: noteData.message,
 			type: noteData.type,
 			userId: noteData.userId
 		});
 
-		createNotesDb.save((err, res) => {
+		notesDb.save((err, res) => {
 			if (err) {
 				console.log('err:', err);
 				callback(err);
@@ -46,15 +46,49 @@ class NotesModel {
 		});
 	}
 
-	// getAll(callback) {
-	// 	users.find({}, (err, usersinfo) => {
-	// 		if (err) {
-	// 			callback(err);
-	// 		} else {
-	// 			callback(null, usersinfo);
-	// 		}
-	// 	});
-	// }
+	updateNote(id, noteData, callback) {
+		id = mongoose.Types.ObjectId(id);
+		console.log(' request in add note model', noteData);
+
+		notes.findByIdAndUpdate(id, noteData, (err, data) => {
+			if (err) {
+				console.log('error finding id model');
+				callback(err);
+			} else {
+				console.log('note updated succesfully', data);
+				callback(null, data);
+			}
+		});
+	}
+
+	deleteNote(id, callback) {
+		id = mongoose.Types.ObjectId(id);
+		console.log(' request in delete note model', id);
+
+		notes.findByIdAndDelete(id, (err, data) => {
+			if (err) {
+				console.log('error finding id model');
+				callback(err);
+			} else {
+				console.log('note deleted succesfully', data);
+				callback(null, data);
+			}
+		});
+	}
+
+	getAllUserNotes(userId, callback) {
+		userId = mongoose.Types.ObjectId(userId);
+		console.log('userId:', userId);
+		notes.find({ userId: userId }, (err, result) => {
+			if (err) {
+				console.log('err:', err);
+				callback(err);
+			} else {
+				console.log('result:', result);
+				callback(null, result);
+			}
+		});
+	}
 	// //create and save messages
 	// saveMsg(body, callback) {
 	// 	console.log(' request in model save msg', body);
