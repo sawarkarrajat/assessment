@@ -65,16 +65,7 @@ class UserService {
       }
     });
   }
-  /**
-   * checking user login status
-   */
-  loggedUser(body, callback) {
-    if (body) {
-      callback(null, body);
-    } else {
-      callback(err);
-    }
-  }
+
   /**
    * forgot password service method
    */
@@ -136,41 +127,6 @@ class UserService {
       }
     });
   }
-  /**
-   * getting all users in chatDashboard
-   */
-  getAll_Users(body, callback) {
-    console.log(' request in getallusers service and has body', body);
 
-    userModelObj.getAll((err, result) => {
-      if (err) {
-        callback(err);
-      } else {
-        if (!result) {
-          callback({ message: 'no data found' });
-        } else {
-          callback(null, result);
-        }
-      }
-    });
-  }
-  /**
-   * saving messages in db
-   */
-  saveConversation(body, callback) {
-    console.log(' request in saveConversation service and has body', body);
-
-    userModelObj.saveMsg((err, result) => {
-      if (err) {
-        callback(err);
-      } else {
-        if (!result) {
-          callback({ message: 'no data found' });
-        } else {
-          callback(null, result);
-        }
-      }
-    });
-  }
 }
 module.exports = new UserService();

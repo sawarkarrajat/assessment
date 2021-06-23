@@ -1,9 +1,7 @@
 const notesServiceObj = require("../services/notesService");
 
 class NotesController {
-	/**
-	 * create user controller method
-	 */
+
 	addNote(req, res) {
 		console.log('request in controller addNote');
 

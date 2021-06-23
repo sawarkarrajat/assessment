@@ -123,48 +123,6 @@ class UserController {
       );
     }
   }
-
-  /**
-   * chatDashboard controller method
-   */
-  getAllUsers(req, res) {
-    let response = {};
-
-    console.log('req controller getAllUsers has body\n', req.body);
-    const userBody = req.body;
-    userServiceObj.getAll_Users(userBody, function (err, result) {
-      if (err) {
-        response.status = false;
-        response.message = 'no users in db';
-        res.status(500).send(response);
-      } else {
-        response.status = true;
-        response.message = 'users extracted successfully';
-        response.result = result;
-        res.status(200).send(response);
-      }
-    });
-  }
-
-  /**
-   * login status check if user is logged in or not
-   */
-  // loginStatus(req, res, next) {
-  //   let response = {};
-  //   console.log("req ", req.body);
-  //   const userBody = req.body;
-  //   userServiceObj.loggedUser(userBody, function(err, result) {
-  //     if (err) {
-  //       response.status = false;
-  //       response.message = "un-Authorised User";
-  //       res.status(500).send(response);
-  //     } else {
-  //       response.status = true;
-  //       response.message = "Authorised user";
-  //       res.status(200).send(response);
-  //     }
-  //   });
-  // }
 }
 
 module.exports = new UserController();

@@ -54,25 +54,7 @@ class UserModel {
       }
     });
   }
-  //create and save messages
-  saveMsg(body, callback) {
-    console.log(' request in model save msg', body);
-    const newConversation = new messages({
-      senderId: body.senderId,
-      receiverId: body.receiverId,
-      sender: body.sender,
-      receiver: body.receiver,
-      message: body.message
-    });
 
-    newConversation.save((err, res) => {
-      if (err) {
-        callback(err);
-      } else {
-        callback(null, res);
-      }
-    });
-  }
   //Create and Save a new User
   createUser(body, callback) {
     console.log(' request in model', body);
