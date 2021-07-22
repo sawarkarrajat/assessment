@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: utilities/tokenVerify.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,48 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: utilities/tokenVerify.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { sKey } = require('../configs/token.config');
+const jwt = require('jsonwebtoken');
+/**
+ * token Verifyer
+ * @module tokenVerifyer
+ */
+module.exports = {
+  /**
+ * Token verifyer
+ * @param {object} req - the request object containing token in header
+ * @param {object} res - the response object
+ * @param {object} next - the next object to continue the flow
+ */
+  tokenVerifyer(req, res, next) {
+    const token = req.headers['token'] || req.params.token;
+    console.log('\nvalue of token in token verifyer ', token);
+    jwt.verify(token, sKey, function (err, decoded) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('\nvalue of skey', sKey);
+        console.log('\nvalue of decoded', decoded);
+        console.log('\n value of req in verify token\n', req.body);
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+        req.decoded = decoded;
+        next();
+      }
+    });
+  }
+};
+</code></pre>
+        </article>
+    </section>
 
 
 

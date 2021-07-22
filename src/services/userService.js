@@ -3,12 +3,18 @@ const utility = require('../utilities/utility');
 const token = require('../utilities/tokenGen');
 const bcrypt = require('bcrypt');
 let tok;
-
+/**
+ * A class representing an User
+ */
 class UserService {
   returnToken() {
     return tok;
   }
-  //register service
+  /**
+  *  register service
+  * @param {Body} body - the body object
+  * @param {callback} callback - the callback method for further operations
+  */
   registerUser(body, callback) {
     console.log(' request in create service ');
     let mail = { email: body.email };
@@ -30,7 +36,11 @@ class UserService {
       }
     });
   }
-  // login service
+  /**
+   *  login service
+   * @param {Body} body - the body object
+   * @param {callback} callback - the callback method for further operations
+   */
   loginUser(body, callback) {
     console.log(' request in login service ');
     let mail = { email: body.email };
@@ -67,8 +77,10 @@ class UserService {
   }
 
   /**
-   * forgot password service method
-   */
+ *  forgot password service
+ * @param {Body} body - the body object
+ * @param {callback} callback - the callback method for further operations
+ */
   forgotPasswordUser(body, callback) {
     console.log('request in forgot password service ');
     userModelObj.findUser(body, (err, result) => {
@@ -95,15 +107,17 @@ class UserService {
     });
   }
   /**
-   * forgot password service method
+   *  reset passowrd service
+   * @param {Body} userNewPass - the body object
+   * @param {string} userId - the user id string
+   * @param {callback} callback - the callback method for further operations
    */
   resetPasswordUser(userNewPass, userId, callback) {
-    // var uId = { '_id': id };
     console.log(
       ' request in resetPasswordUser service\n value of password ' +
-        userNewPass +
-        '\nvalue of id ' +
-        userId
+      userNewPass +
+      '\nvalue of id ' +
+      userId
     );
     userModelObj.findUser(userId, (err, result) => {
       if (err) {

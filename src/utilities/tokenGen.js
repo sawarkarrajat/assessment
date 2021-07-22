@@ -1,7 +1,14 @@
 const { sKey } = require('../configs/token.config');
 const jwt = require('jsonwebtoken');
-
+/**
+ * token Generator
+ * @module tokenGenerator
+ */
 module.exports = {
+  /**
+ * Token generator method for generating token based on id
+ * @param {string} justId - the is string extracted from user id
+ */
   tokenGenerator(justId) {
     console.log('\nvalue of body in token generator', justId);
 

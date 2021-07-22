@@ -1,6 +1,16 @@
 const { sKey } = require('../configs/token.config');
 const jwt = require('jsonwebtoken');
+/**
+ * token Verifyer
+ * @module tokenVerifyer
+ */
 module.exports = {
+  /**
+ * Token verifyer
+ * @param {object} req - the request object containing token in header
+ * @param {object} res - the response object
+ * @param {object} next - the next object to continue the flow
+ */
   tokenVerifyer(req, res, next) {
     const token = req.headers['token'] || req.params.token;
     console.log('\nvalue of token in token verifyer ', token);

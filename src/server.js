@@ -54,7 +54,12 @@ app.use(
     }
   })
 );
-
+/***
+ * all the routes
+ */
 app.use('/', route);
 
+/**
+ * listening to port below
+ */
 app.listen(port, () => console.log(`Example app listening on ${port} port!`));
