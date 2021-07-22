@@ -54,7 +54,7 @@ class UserService {
             console.log('value of body in if', body);
             console.log('value of result in if', result);
 
-            let tokenvalue = token.tokenGenerator(result);
+            let tokenvalue = token.tokenGenerator(result._id);
             tok = tokenvalue;
             console.log('token generated:  ', tokenvalue);
             callback(null, result);

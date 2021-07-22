@@ -78,12 +78,8 @@ class UserModel {
   //method to verify user for forgot password
   verifyUser(body, callback) {
     console.log(' request in verifyUSer model', body);
-    // this.findUser(body, (error, data) => {
-    // 	if (error) {
-    // 		callback(error);
-    // 	} else {
     console.log('value of data._id', body._id);
-    let tokenvalue = token.tokenGenerator(body);
+    let tokenvalue = token.tokenGenerator(body._id);
     console.log('tokenvalue after token generation', tokenvalue);
     let address = `http://${host}:${port}/users/resetPassword/${tokenvalue}`;
     nodemailer.mailer(body, address, (err, res) => {
@@ -94,8 +90,6 @@ class UserModel {
         callback(null, res);
       }
     });
-    // 	}
-    // });
   }
   // change user password using reset method from service
   changePassword(body, id, callback) {
@@ -105,12 +99,14 @@ class UserModel {
       body.password
     );
 
-    const qpassword = utility.encryptPass(body.password);
+    const newPassword = { password: utility.encryptPass(body.password) };
+
     console.log(
       'password to be hashed' + body.password + '\npassword after hashing',
-      qpassword
+      newPassword
     );
-    users.findByIdAndUpdate(id, { password: qpassword }, (err, data) => {
+
+    users.findByIdAndUpdate(id, newPassword, (err, data) => {
       if (err) {
         console.log('error finding id in changepassword method in model');
         callback(err);

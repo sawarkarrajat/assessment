@@ -2,10 +2,10 @@ const { sKey } = require('../configs/token.config');
 const jwt = require('jsonwebtoken');
 
 module.exports = {
-  tokenGenerator(body) {
-    console.log('\nvalue of body in token generator', body);
+  tokenGenerator(justId) {
+    console.log('\nvalue of body in token generator', justId);
 
-    let payload = { _id: body._id };
+    let payload = { _id: justId };
     console.log('\nvalue of payload', payload);
 
     let token = jwt.sign(payload, sKey);
