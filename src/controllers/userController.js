@@ -20,15 +20,15 @@ class UserController {
       response.status = false;
       response.message = 'Validation Error';
       response.data = errors;
-      res.status(500).send(response);
+      res.status(400).send(response);
     } else {
       console.log('req ', req.body);
       const userBody = req.body;
-      userServiceObj.registerUser(userBody, function (err, data) {
+      userServiceObj.registerUser(userBody, (err, data) => {
         if (err) {
           response.status = false;
           response.message = 'Email Already Exists';
-          res.status(500).send(response);
+          res.status(409).send(response);
         } else {
           response.status = true;
           response.message = 'Registered successfully';
@@ -44,11 +44,11 @@ class UserController {
     let response = {};
     console.log('req ', req.body);
     const userBody = req.body;
-    userServiceObj.loginUser(userBody, function (err, result) {
+    userServiceObj.loginUser(userBody, (err, result) => {
       if (err) {
         response.status = false;
         response.message = err.message;
-        res.status(500).send(response);
+        res.status(400).send(response);
       } else {
         response.status = true;
         response.message = 'logged in successfully';
@@ -72,7 +72,7 @@ class UserController {
 
     console.log('req body in forgot password ', req.body);
     const userBody = req.body;
-    userServiceObj.forgotPasswordUser(userBody, function (err, result) {
+    userServiceObj.forgotPasswordUser(userBody, (err, result) => {
       if (err) {
         response.status = false;
         response.message = err.message;
@@ -97,7 +97,7 @@ class UserController {
       response.status = false;
       response.message = 'Validation Error';
       response.data = errors;
-      res.status(500).send(response);
+      res.status(400).send(response);
     } else {
       console.log('value of  req.body in resetPassword controller', req.body);
       console.log(
@@ -109,11 +109,11 @@ class UserController {
       userServiceObj.resetPasswordUser(
         userNewPass,
         userId,
-        function (err, result) {
+        (err, result) => {
           if (err) {
             response.status = false;
             response.message = 'not able to reset password';
-            res.status(500).send(response);
+            res.status(404).send(response);
           } else {
             response.status = true;
             response.message = 'password reset Succesful';

@@ -14,15 +14,15 @@ class NotesController {
 			response.status = false;
 			response.message = 'Validation Error';
 			response.data = errors;
-			res.status(500).send(response);
+			res.status(400).send(response);
 		} else {
 			console.log('req ', req.body);
 			const noteBody = req.body;
-			notesServiceObj.addNote(noteBody, function (err, data) {
+			notesServiceObj.addNote(noteBody, (err, data) => {
 				if (err) {
 					response.status = false;
 					response.message = 'unable to add note';
-					res.status(500).send(response);
+					res.status(404).send(response);
 				} else {
 					response.status = true;
 					response.message = 'note added successfully';
@@ -44,15 +44,15 @@ class NotesController {
 			response.status = false;
 			response.message = 'Validation Error';
 			response.data = errors;
-			res.status(500).send(response);
+			res.status(400).send(response);
 		} else {
 			console.log('req ', req.body);
 			const reqBody = req.body;
-			notesServiceObj.updateNote(reqBody, function (err, data) {
+			notesServiceObj.updateNote(reqBody, (err, data) => {
 				if (err) {
 					response.status = false;
 					response.message = 'unable to update note';
-					res.status(500).send(response);
+					res.status(404).send(response);
 				} else {
 					response.status = true;
 					response.message = 'note updated successfully';
@@ -73,15 +73,15 @@ class NotesController {
 			response.status = false;
 			response.message = 'Validation Error';
 			response.data = errors;
-			res.status(500).send(response);
+			res.status(400).send(response);
 		} else {
 			console.log('req ', req.body);
 			const reqBody = req.body;
-			notesServiceObj.deleteNote(reqBody, function (err, data) {
+			notesServiceObj.deleteNote(reqBody, (err, data) => {
 				if (err) {
 					response.status = false;
 					response.message = 'unable to delete note';
-					res.status(500).send(response);
+					res.status(404).send(response);
 				} else {
 					response.status = true;
 					response.message = 'note deleted successfully';
@@ -103,15 +103,15 @@ class NotesController {
 			response.status = false;
 			response.message = 'Validation Error';
 			response.data = errors;
-			res.status(500).send(response);
+			res.status(400).send(response);
 		} else {
 			console.log('req ', req.body);
 			const reqBody = req.body;
-			notesServiceObj.getAllUserNotes(reqBody, function (err, data) {
+			notesServiceObj.getAllUserNotes(reqBody, (err, data) => {
 				if (err) {
 					response.status = false;
-					response.message = 'unable to add note';
-					res.status(500).send(response);
+					response.message = 'unable to find notes';
+					res.status(404).send(response);
 				} else {
 					response.status = true;
 					response.message = 'notes found successfully';
