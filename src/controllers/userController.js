@@ -105,7 +105,7 @@ class UserController {
         req.decoded
       );
       const userNewPass = { password: req.body.password };
-      const userId = { _id: req.decoded._id };
+      const userId = { _id: req.body.userId };
       userServiceObj.resetPasswordUser(
         userNewPass,
         userId,

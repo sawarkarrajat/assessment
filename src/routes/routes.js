@@ -3,7 +3,6 @@ const users = require('../controllers/userController');
 const notes = require('../controllers/notesController');
 const verify = require('../utilities/tokenVerify');
 let router = express.Router();
-//Create ne user
 console.log('in router');
 
 router.post('/users/register', users.create);

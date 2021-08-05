@@ -3,10 +3,11 @@ const notesServiceObj = require("../services/notesService");
 class NotesController {
 
 	addNote(req, res) {
-		console.log('request in controller addNote');
+		console.log('request in controller addNote', req.body.userId);
 
 		let response = {};
 		req.checkBody('message', 'message should not be null').not().isEmpty();
+		req.checkBody('userId', 'userId should not be null').not().isEmpty();
 
 		const errors = req.validationErrors();
 		if (errors) {
@@ -65,7 +66,7 @@ class NotesController {
 		console.log('request in controller deletenote');
 
 		let response = {};
-		req.checkBody('id', 'id should not be null').not().isEmpty();
+		req.checkBody('id', 'note id should not be null').not().isEmpty();
 
 		const errors = req.validationErrors();
 		if (errors) {

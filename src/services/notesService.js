@@ -11,7 +11,7 @@ class NotesService {
 	 * @param {callback} callback - the callback method for further operations
 	 */
 	addNote(body, callback) {
-		console.log(' request in create service ');
+		console.log(' request in create service ', body);
 		let noteData = { message: body.message, type: body.type, userId: body.userId };
 		noteModelObj.addNote(noteData, (err, result) => {
 			if (err) {

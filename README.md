@@ -61,7 +61,6 @@ src\configs\database.config.js
     	--data-raw '{
     	"message":"new note3" ,
     	"type": "open",
-    	"userId":"60c852c6c94fb189acab3bb3"
     	}'
 
 * get all notes api
@@ -70,7 +69,6 @@ src\configs\database.config.js
     	--header 'Content-Type: application/json',
     	token: 'jwt token here' \
     	--data-raw '{
-    	"userId":"60c852c6c94fb189acab3bb3"
     	}'
 
 * update notes api
@@ -79,7 +77,7 @@ src\configs\database.config.js
     	--header 'Content-Type: application/json',
     	token: 'jwt token here' \
     	--data-raw '{
-    	"id": "60cfad1a1bfbc827e0c58fd9",
+    	"id": "60cfad1a1bfbc827e0c58fd9", //this is note id
     	"message": "new note updated",
     	"type": "complete"
     	}'
@@ -90,5 +88,5 @@ src\configs\database.config.js
     	--header 'Content-Type: application/json',
     	token: 'jwt token here' \
     	--data-raw '{
-    	"id": "60cfad1a1bfbc827e0c58fd9"
+    	"id": "60cfad1a1bfbc827e0c58fd9"  //this is note id
     	}'

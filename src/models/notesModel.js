@@ -59,14 +59,15 @@ class NotesModel {
 	 * @param {callback} callback - callback method
 	 */
 	updateNote(id, noteData, callback) {
-		id = mongoose.Types.ObjectId(id);
+		let noteId = { _id: mongoose.Types.ObjectId(id) };
 		console.log(' request in add note model', noteData);
 
-		notes.findByIdAndUpdate(id, noteData, (err, data) => {
-			if (err) {
-				console.log('error finding id model');
-				callback(err);
-			} else {
+		notes.findByIdAndUpdate(noteId, noteData, (err, data) => {
+			if (err || !data) {
+				console.log('error finding note', err);
+				callback(err || 'error finding note');
+			}
+			if (data) {
 				console.log('note updated succesfully', data);
 				callback(null, data);
 			}
@@ -78,14 +79,15 @@ class NotesModel {
 	 * @param {callback} callback - callback method
 	 */
 	deleteNote(id, callback) {
-		id = mongoose.Types.ObjectId(id);
-		console.log(' request in delete note model', id);
+		let noteId = { _id: mongoose.Types.ObjectId(id) };
+		console.log(' request in delete note model', typeof noteId);
 
-		notes.findByIdAndDelete(id, (err, data) => {
-			if (err) {
-				console.log('error finding id model');
-				callback(err);
-			} else {
+		notes.findByIdAndDelete(noteId, (err, data) => {
+			if (err || !data) {
+				console.log('error finding note', err);
+				callback(err || 'error finding note');
+			}
+			if (data) {
 				console.log('note deleted succesfully', data);
 				callback(null, data);
 			}
