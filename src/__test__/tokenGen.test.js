@@ -1,4 +1,4 @@
-const { tokenGenerator } = require("./tokenGen");
+const { tokenGenerator } = require("../utilities/tokenGen");
 const { sKey } = require('../configs/token.config');
 const jwt = require('jsonwebtoken');
 

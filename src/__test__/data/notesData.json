@@ -1,0 +1,18 @@
+[
+  {
+    "message": "new note1",
+    "type": "open"
+  },
+  {
+    "message": "new note2",
+    "type": "open"
+  },
+  {
+    "message": "new note3",
+    "type": "open"
+  },
+  {
+    "message": "new note4",
+    "type": "open"
+  }
+]
