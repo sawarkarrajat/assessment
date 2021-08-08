@@ -3,11 +3,6 @@
   "version": "1.0.0",
   "description": "nodejs express mongodb practice",
   "main": "server.js",
-  "scripts": {
-    "test": "jest",
-    "start": "set NODE_ENV=production&&nodemon ./src/server.js",
-    "doc": "jsdoc -c jsdoc.json"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sawarkarrajat/assessment.git"
@@ -18,6 +13,11 @@
     "url": "https://github.com/sawarkarrajat/assessment/issues"
   },
   "homepage": "https://github.com/sawarkarrajat/assessment#readme",
+  "scripts": {
+    "test": "jest",
+    "start": "set NODE_ENV=production&&nodemon ./src/server.js",
+    "doc": "jsdoc -c jsdoc.json"
+  },
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
